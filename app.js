@@ -1,13 +1,13 @@
 const Editor = {
-   props:[
-    'entityObject'
-   ],
-   data(){
-     return{
-         entity:this.entityObject
-     }
-   },
-   template:`
+    props: [
+        'entityObject'
+    ],
+    data() {
+        return {
+            entity: this.entityObject
+        }
+    },
+    template: `
    <div class="ui form">
    <div class="filed">
      <textarea
@@ -30,24 +30,28 @@ const Note = {
     ],
     data() {
         return {
-            entity: this.entityObject
+            entity: this.entityObject,
+            open: false
         }
     },
-    components:{
-       'editor':Editor
+    components: {
+        'editor': Editor
     },
     template: `
     <div class="item">
     <div class="content">
-    </div class="header">
+    <div class="header" v-on:click='open = !open'>
     {{
         entity.body || '新建笔记'
     }}
+    
     <div class="extra">
     <editor
     v-bind:entity-object="entity"
+    v-if='open'
     ></editor>  
     </div>
+
     </div>
     </div>
     </div>
@@ -73,17 +77,17 @@ const Notes = {
                 console.log(this.entities)
             })
     },
- 
-    methods:{
-      create(){
-          loadCollection('notes').then((collection)=>{
-              const entity = collection.insert({
-                  body:''
-              })
-              db.saveDatabase()
-              this.entities.unshift(entity)
-          })
-      }
+
+    methods: {
+        create() {
+            loadCollection('notes').then((collection) => {
+                const entity = collection.insert({
+                    body: ''
+                })
+                db.saveDatabase()
+                this.entities.unshift(entity)
+            })
+        }
     },
 
 
