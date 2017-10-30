@@ -5,8 +5,8 @@
   "repository": "https://github.com/654023575/vue-note-example.git",
   "author": "yanggong <yanggong@kangyixing.com>",
   "license": "MIT",
-  "scripts":{
-  "start":"./node_modules/.bin/browser-sync start --server --no-notify --files='index.html,*.css,*.js'"
+  "scripts": {
+    "start": "./node_modules/.bin/browser-sync start --server --no-notify --files='*.js,*.css,index.html'"
   },
   "devDependencies": {
     "browser-sync": "^2.18.13"
