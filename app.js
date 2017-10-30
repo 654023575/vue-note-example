@@ -34,26 +34,28 @@ const Note = {
             open: false
         }
     },
+    computed: {
+        header() {
+            return _.truncate(this.entity.body, { length: 30 })//用lodash截取前30个字
+        }
+    },
     components: {
         'editor': Editor
     },
     template: `
     <div class="item">
-    <div class="content">
-    <div class="header" v-on:click='open = !open'>
-    {{
-        entity.body || '新建笔记'
-    }}
-    
-    <div class="extra">
-    <editor
-    v-bind:entity-object="entity"
-    v-if='open'
-    ></editor>  
-    </div>
-
-    </div>
-    </div>
+      <div class="content">
+        <div class="header" v-on:click='open = !open'>
+          {{ header || '新建笔记' }}
+      </div>
+      
+      <div class="extra">
+      <editor
+      v-bind:entity-object="entity"
+      v-if='open'
+      ></editor>  
+     </div>
+     </div>
     </div>
     `
 }
