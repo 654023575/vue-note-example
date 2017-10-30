@@ -13,7 +13,7 @@ const Note = {
     <div class="content">
     </div class="header">
     {{
-        entity.body
+        entity.body || '新建笔记'
     }}
     </div>
     </div>
@@ -40,6 +40,20 @@ const Notes = {
                 console.log(this.entities)
             })
     },
+ 
+    methods:{
+      create(){
+          loadCollection('notes').then((collection)=>{
+              const entity = collection.insert({
+                  body:''
+              })
+              db.saveDatabase()
+              this.entities.unshift(entity)
+          })
+      }
+    },
+
+
     components: {
         'note': Note
     },
@@ -50,7 +64,9 @@ const Notes = {
          <i class="paw icon"></i>
          Yanggong Notes App Vue.js
     </h4>  
-    <a class="ui right floated basic violet button">
+    <a class="ui right floated basic violet button"
+    v-on:click='create'
+    >
       添加笔记
     </a>
     <div class="ui divided items">
