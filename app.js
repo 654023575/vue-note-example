@@ -45,6 +45,9 @@ const Note = {
         },
         updated() {
             return moment(this.entity.meta.update).fromNow()
+        },
+        words(){
+            return this.entity.body.trim().length
         }
     },
     components: {
@@ -74,6 +77,7 @@ const Note = {
       v-if='open'
       v-on:update='save'
       ></editor>  
+      {{words}} 字
      </div>
      </div>
     </div>
