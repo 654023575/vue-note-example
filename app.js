@@ -7,10 +7,10 @@ const Editor = {
             entity: this.entityObject
         }
     },
-    methods:{
-      update(){
-          this.$emit('update')
-      }
+    methods: {
+        update() {
+            this.$emit('update')
+        }
     },
     template: `
    <div class="ui form">
@@ -42,21 +42,27 @@ const Note = {
     computed: {
         header() {
             return _.truncate(this.entity.body, { length: 30 })//用lodash截取前30个字
+        },
+        updated() {
+            return moment(this.entity.meta.update).fromNow()
         }
     },
     components: {
         'editor': Editor
     },
-    methods:{
-      save(){
-          loadCollection('notes').then((collection)=>{
-              collection.update(this.entity)
-              db.saveDatabase()
-          })
-      }
+    methods: {
+        save() {
+            loadCollection('notes').then((collection) => {
+                collection.update(this.entity)
+                db.saveDatabase()
+            })
+        }
     },
     template: `
     <div class="item">
+    <div class="meta">
+    {{updated}}
+    </div>
       <div class="content">
         <div class="header" v-on:click='open = !open'>
           {{ header || '新建笔记' }}
